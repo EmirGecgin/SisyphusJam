@@ -9,10 +9,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float verticalSpeed,horizontalSpeed,jumpForce;
     private float _moveHorizontal, _moveVertical;
     [SerializeField] private bool isOnGrounded=true;
+    [SerializeField] private int collisonWithPlayer;
+    public List<GameObject> healthIcon;
+
     void Start()
     {
         
         _rigidBody = GetComponent<Rigidbody>();
+        collisonWithPlayer = 3;
     }
     private void Update()
     {
@@ -79,5 +83,27 @@ public class PlayerController : MonoBehaviour
         {
             isOnGrounded = true;
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(collision.gameObject);
+            collisonWithPlayer--;
+            Debug.Log(collisonWithPlayer);
+            if (collisonWithPlayer==2)
+            {
+                healthIcon[2].gameObject.SetActive(false);
+            }
+            if (collisonWithPlayer==1)
+            {
+                healthIcon[1].gameObject.SetActive(false);
+            }
+            if (collisonWithPlayer==0)
+            {
+                healthIcon[0].gameObject.SetActive(false);
+                Time.timeScale = 0;
+                Debug.Log("Your are piece of shit!");
+                
+            }
+        }
     }
+   
 }
