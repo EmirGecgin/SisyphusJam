@@ -156,9 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b665b06757e078e4186f43cef726b763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 100
-  horizontalSpeed: 40
-  anglerForce: 10
+  verticalSpeed: 3
+  horizontalSpeed: 20
+  jumpForce: 1000
+  isOnGrounded: 1
 --- !u!54 &503267202
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503267200}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 1
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -247,7 +248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503267200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.43, z: 6.43}
+  m_LocalPosition: {x: 0, y: -0.56, z: 6.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -574,7 +575,7 @@ GameObject:
   - component: {fileID: 1361994338}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
