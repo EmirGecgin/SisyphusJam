@@ -8,6 +8,8 @@ TagManager:
   - HorizontalStone
   - NPC
   - Enemy
+  - Rock
+  - Dead
   layers:
   - Default
   - TransparentFX

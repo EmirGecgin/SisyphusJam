@@ -9,7 +9,7 @@ public class VerticalStoneDestroy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Destroy(gameObject,1f);
+            Destroy(gameObject,0.2f);
         }
     }
 }

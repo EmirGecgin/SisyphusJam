@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEngine.GraphicsBuffer;
 
 public class DiaolugeManager : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class DiaolugeManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI sentencesText;
     [SerializeField] private int indexOfSentences;
     [SerializeField] private GameObject continueButton;
+    public int count=0;
+    public GameObject OldPerson;
+    public Animator animator;
+    public GameObject sphere;
+    public Transform target;
+    public int moveSpeed;
+
+   
     private void Update()
     {
         if (sentencesText.text == dialogueSentences[indexOfSentences])
@@ -24,6 +33,8 @@ public class DiaolugeManager : MonoBehaviour
                 //sentencesText.text = "";
             }
         }
+        
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -52,7 +63,18 @@ public class DiaolugeManager : MonoBehaviour
     }
     public void NextDialogue()
     {
-        if(indexOfSentences<dialogueSentences.Length-1)
+        count++;
+
+        if (count > 1)
+        {
+            Debug.Log("dammm");
+            OldPerson.transform.Rotate(0, 180, 0);
+            animator.SetBool("OldPush", true);
+           
+        }
+
+
+        if (indexOfSentences<dialogueSentences.Length-1)
         {
             continueButton.SetActive(false);
             indexOfSentences++;

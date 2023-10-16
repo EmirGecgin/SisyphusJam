@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidBody;
@@ -14,35 +15,102 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        jumpForce = 525;
         _rigidBody = GetComponent<Rigidbody>();
         collisonWithPlayer = 3;
+        Physics.gravity = new Vector3(0, -20.0f, 0);
+        verticalSpeed = 40;
+
     }
     private void Update()
     {
         _moveHorizontal = Input.GetAxis("Horizontal");
         _moveVertical = Input.GetAxis("Vertical");
 
+        if (Input.GetKeyUp(KeyCode.W)&&( _rigidBody.velocity.z>0.5f))
+        {
+            verticalSpeed = -50;//40
+        }
+
         if (Input.GetKeyDown(KeyCode.W))
         {
-            verticalSpeed = 40;
+            verticalSpeed = 40;//40
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            verticalSpeed = 15;
+           
+            verticalSpeed = 15;//15
         }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+
+            verticalSpeed = -30;//15
+        }
+        else if (Input.GetKey(KeyCode.D)&& !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            horizontalSpeed = 30;
+            if (Input.GetKey(KeyCode.Space))///////////////////lllllllllll/////////////
+            {
+                _rigidBody.AddForce(50, 0, 0);
+            }
+                   
+            
+        }
+
+
+        else if (Input.GetKeyDown(KeyCode.D) )//////////////////deneme///////////////////////
+        {
+            horizontalSpeed = 30;
+            
+
+        }
+
+
+
+        else if (Input.GetKey(KeyCode.A)&& !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            if (Input.GetKey(KeyCode.Space))///////////////////lllllllllll/////////////
+            {
+                _rigidBody.AddForce(-50, 0, 0);
+            }
+            horizontalSpeed = 30;
+        }
+
+
+        else if (Input.GetKeyDown(KeyCode.A))//////////////////deneme///////////////////////
+        {
+            horizontalSpeed = 30;
+
+
+        }
+
+
+        else if (Input.GetKeyUp(KeyCode.D) && (_rigidBody.velocity.x > 0.7f))
+        {
+            //_rigidBody.AddForce(-1100,0,0) ;
+
+           horizontalSpeed = -20;//15
+        }
+        else if (Input.GetKeyUp(KeyCode.A) && (_rigidBody.velocity.x < -0.7f))
+        {
+           //_rigidBody.AddForce(1100, 0, 0);
+             horizontalSpeed = -20;//15
+        }
+
+
         else if (Input.GetKeyDown(KeyCode.W)&&Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.W)&&Input.GetKeyDown(KeyCode.D))
         {
-            verticalSpeed = 10;
-            horizontalSpeed = 20;
+           
+            verticalSpeed = 10;//10
+            horizontalSpeed = 20;//20
         }
         else if (Input.GetKeyDown(KeyCode.S)&&Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.S)&&Input.GetKeyDown(KeyCode.D))
         {
-            verticalSpeed = 10;
-            horizontalSpeed = 20;
+            verticalSpeed = 10;//10
+            horizontalSpeed = 20;//20
         }
-
-        if (Input.GetKeyDown(KeyCode.Space)&&isOnGrounded)
+        /*
+        if (Input.GetKeyDown(KeyCode.Space)&&isOnGrounded||( isOnGrounded&&Input.GetButton("Jump")))// gamepad için
         {
             isOnGrounded = false;
             
@@ -52,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 
                
                 isOnGrounded = false;
-                _rigidBody.AddForce(Vector3.up*jumpForce*1.25f);
+                _rigidBody.AddForce(Vector3.up*jumpForce*2f);
                 Debug.Log(jumpForce);
                 
             }
@@ -69,6 +137,7 @@ public class PlayerController : MonoBehaviour
         }
         
         //Debug.Log(_rigidBody.velocity);
+        */
     }
 
     private void FixedUpdate()
@@ -85,12 +154,16 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            
+            CameraShake.Invoke();
+           
             Destroy(collision.gameObject);
             collisonWithPlayer--;
             Debug.Log(collisonWithPlayer);
             if (collisonWithPlayer==2)
             {
                 healthIcon[2].gameObject.SetActive(false);
+               
             }
             if (collisonWithPlayer==1)
             {
@@ -99,7 +172,8 @@ public class PlayerController : MonoBehaviour
             if (collisonWithPlayer==0)
             {
                 healthIcon[0].gameObject.SetActive(false);
-                Time.timeScale = 0;
+                ReloadaScene.looseOk = true;
+                //Time.timeScale = 0;
                 Debug.Log("Your are piece of shit!");
                 
             }

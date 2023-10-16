@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private Rigidbody _rb;
+    public GameObject MainChar;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -16,5 +17,7 @@ public class BallController : MonoBehaviour
     void FixedUpdate()
     {
         _rb.AddForce(0,0,-10);
+        
     }
+   
 }
